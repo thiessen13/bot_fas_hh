@@ -6,7 +6,7 @@ from telegram import KeyboardButton, ReplyKeyboardMarkup
 
 # constants
 
-TOKEN: Final = "7113973054:AAEEkPm8E8TFq3YGj7cswPt9drH7TbQRjVk"
+TOKEN: Final = "7113973054:xxxxxxxxx"
 BOT_NAME: Final = '@far_hamburg_bot'
 ASKING_MESSAGE, ASKING_LANGUAGE = range(2)
 # anastas as an admin
