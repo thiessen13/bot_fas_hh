@@ -2,11 +2,13 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from typing import Final
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, CallbackQueryHandler, CallbackContext
 from telegram import KeyboardButton, ReplyKeyboardMarkup
+import os
 
 
 # constants
 
-TOKEN: Final = "7113973054:xxxxxxxxx"
+
+TOKEN = os.getenv("BOT_TOKEN")  # Получаем токен из переменной окружения
 BOT_NAME: Final = '@far_hamburg_bot'
 ASKING_MESSAGE, ASKING_LANGUAGE = range(2)
 # anastas as an admin
