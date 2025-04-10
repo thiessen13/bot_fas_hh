@@ -59,7 +59,7 @@ async def handle_language(update: Update, context: CallbackContext) -> int:
 
     if user_data[user_id]['language'] == 'немецкий':
         await update.message.reply_text('Sie haben Deutsch gewählt.')
-        await update.message.reply_text("Bitte wählen Sie das Thema Ihrer Nachricht :", reply_markup=InlineKeyboardMarkup(inline_keyboard_de))
+        await update.message.reply_text("Bitte wählen Sie das Thema Ihrer Nachricht:", reply_markup=InlineKeyboardMarkup(inline_keyboard_de))
     elif user_data[user_id]['language'] == 'русский':
         await update.message.reply_text('Вы выбрали русский язык.')
         await update.message.reply_text("Пожалуйста, выберите тему Вашего сообщения:", reply_markup=InlineKeyboardMarkup(inline_keyboard_ru))
