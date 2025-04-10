@@ -30,7 +30,7 @@ inline_keyboard_de = [
                              callback_data="join"),
     ],
     [InlineKeyboardButton(
-        "Ich möchte eine Zusammenarbeit vorschlagen", callback_data="cooperate")],
+        "Zusammenarbeit vorschlagen", callback_data="cooperate")],
     [InlineKeyboardButton("Ich möchte eine Frage stellen",
                           callback_data="question")],
 
