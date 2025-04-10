@@ -58,7 +58,7 @@ async def handle_language(update: Update, context: CallbackContext) -> int:
     user_data[user_id] = {'language': update.message.text.lower()}
 
     if user_data[user_id]['language'] == 'немецкий':
-        await update.message.reply_text('Du hast Deutsch gewählt.')
+        await update.message.reply_text('Sie haben Deutsch gewählt.')
         await update.message.reply_text("Bitte wählen Sie das Thema Ihrer Nachricht :", reply_markup=InlineKeyboardMarkup(inline_keyboard_de))
     elif user_data[user_id]['language'] == 'русский':
         await update.message.reply_text('Вы выбрали русский язык.')
@@ -110,7 +110,7 @@ async def handle_inline_button(update: Update, context: CallbackContext) -> None
         elif query.data == 'question':
             chosen_topic = "eine Frage stellen"
         await query.message.reply_text(f"Sie haben das Thema gewählt: {chosen_topic}. Ausgezeichnet, danke")
-        await query.message.reply_text(text="Schreiben Sie jetzt auf, was Sie uns mitteilen möchten")
+        await query.message.reply_text(text="Schreiben Sie jetzt auf, was Sie uns mitteilen möchten. Bitte schreiben Sie alles in einer einzigen Nachricht – wir erhalten nur die erste.")
     elif user_data[user_id]['language'] == 'русский':
         if query.data == 'join':
             chosen_topic = "стать участни:цей"
@@ -119,7 +119,7 @@ async def handle_inline_button(update: Update, context: CallbackContext) -> None
         elif query.data == 'question':
             chosen_topic = "задать вопрос"
         await query.message.reply_text(f"Вы выбрали тему: {chosen_topic}. Отлично, спасибо")
-        await query.message.reply_text(text="Теперь напишите, что вы хотите нам сообщить")
+        await query.message.reply_text(text="Теперь напишите, что вы хотите нам сообщить. Пожалуйста, напишите всё в одном сообщении — мы получим только первое.")
 
 # Cancel command handler
 #TODO
@@ -152,7 +152,7 @@ async def about(update: Update, context: CallbackContext) -> None:
     language = user_data.get(user_id, {}).get('language', 'немецкий')
     if language == 'немецкий':
         await update.message.reply_text(
-            'Wir sind das Team  Feminist Anti-War Resistance(FAR) in Hamburg. Unser Hauptziel ist die Solidarität mit der Ukraine sowie die Unterstützung politischer Gefangener, der Frauenrechte und der LGBTQI+-Gemeinschaft. Wir organisieren Veranstaltungen und Sammlungen, bei denen Sie Spenden für unterstützende Organisationen leisten können. Schließen Sie sich uns an – gemeinsam können wir mehr bewirken! Folgen Sie uns in den sozialen Medien, um nichts zu verpassen.\n'
+            'Wir sind das Team  Feminist Anti-War Resistance (FAR) in Hamburg. Unser Hauptziel ist die Solidarität mit der Ukraine sowie die Unterstützung politischer Gefangener, der Frauenrechte und der LGBTQI+-Gemeinschaft. Wir organisieren Veranstaltungen und Sammlungen, bei denen Sie Spenden für unterstützende Organisationen leisten können. Schließen Sie sich uns an – gemeinsam können wir mehr bewirken! Folgen Sie uns in den sozialen Medien, um nichts zu verpassen.\n'
             'Alle nützlichen Links und unsere sozialen Netzwerke finden Sie auch unter linktr.ee/far_hamburg'
         )
     elif language == 'русский':
@@ -162,7 +162,7 @@ async def about(update: Update, context: CallbackContext) -> None:
         )
     else:
         await update.message.reply_text(
-            'Hello! We are the team of FAS in Hamburg. Our main goal is to show solidarity with Ukraine and support political prisoners, women''s'' rights, and the LGBTQI+ community. We organize events and fundraisers where you can make donations to supporting organizations. Join us – together we can make a difference! Follow us on social media to stay updated.\n'
+            'Hello! We are the team of FAR in Hamburg. Our main goal is to show solidarity with Ukraine and support political prisoners, women''s'' rights, and the LGBTQI+ community. We organize events and fundraisers where you can make donations to supporting organizations. Join us – together we can make a difference! Follow us on social media to stay updated.\n'
             'You can find all useful links and our social networks here linktr.ee/far_hamburg'
         )
 
@@ -203,9 +203,9 @@ async def handle_message(update: Update, context: CallbackContext) -> int:
     await context.bot.send_message(chat_id=GROUP_ID, text=message_to_admin)
 
     if language == 'немецкий':
-        await update.message.reply_text('Ihre Nachricht wurde de:r Administrator:in gesendet.')
+        await update.message.reply_text('Ihre Nachricht wurde de:r Administrator:in gesendet. Eine:r unserer Administrator:innen wird sich in Kürze bei Ihnen melden.')
     elif language == 'русский':
-        await update.message.reply_text('Сообщение переслано администратор:ке!!!')
+        await update.message.reply_text('Сообщение переслано администратор:ке. С вами свяжется одна из наших администратор:ок в ближайшее время.')
 
     del user_data[user_id]  # Clear user data after processing
 
