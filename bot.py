@@ -159,12 +159,14 @@ async def handle_message(update: Update, context: CallbackContext) -> int:
     user_message = update.message.text
     user_id = update.message.from_user.id
 
+    # Проверка: начал ли пользователь диалог
     if user_id not in user_data:
         await update.message.reply_text("Пожалуйста, начните сначала с /start.")
         return ConversationHandler.END
 
-    language = user_data[user_id]['language']
-    chosen_topic = user_data[user_id]['topic']
+    # Получаем язык и тему — с запасным значением, если тема не выбрана
+    language = user_data[user_id].get('language', 'deutsch')
+    chosen_topic = user_data[user_id].get('topic', 'kein_Thema' if language == 'deutsch' else 'без_темы')
 
     # 🔹 Обработка специального случая — вступление в чат
     if chosen_topic == 'join_chat' and user_message.strip().lower() in [
@@ -185,7 +187,7 @@ async def handle_message(update: Update, context: CallbackContext) -> int:
         del user_data[user_id]
         return ConversationHandler.END
 
-    # 🔹 Обычное сообщение по выбранной теме
+    # 🔹 Обычное сообщение
     message_to_admin = (
         f"Сообщение от пользователь:ницы\n"
         f"Имя: {update.effective_user.first_name}\n"
@@ -200,9 +202,13 @@ async def handle_message(update: Update, context: CallbackContext) -> int:
         await update.message.reply_text('Ihre Nachricht wurde gesendet. Eine:r unserer Koordinator:innen wird sich in Kürze bei Ihnen melden.')
     elif language == 'русский':
         await update.message.reply_text('Сообщение переслано. С вами свяжется одна из наших координатор:ок в ближайшее время.')
+    if language == 'deutsch':
+        await update.message.reply_text("Wähle bitte ein neues Thema:", reply_markup=InlineKeyboardMarkup(inline_keyboard_de))
+    else:
+        await update.message.reply_text("Выбери, пожалуйста, новую тему:", reply_markup=InlineKeyboardMarkup(inline_keyboard_ru))
 
-    del user_data[user_id]
-    return ConversationHandler.END
+    return ASKING_MESSAGE
+
 
 
 async def cancel(update: Update, context: CallbackContext) -> int:
